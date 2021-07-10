@@ -1,4 +1,4 @@
-import 'package:app_movil_civil/widgets/SliverAppBar/image_circle_widget.dart';
+import 'package:app_movil_oficial/widgets/SliverAppBar/image_circle_widget.dart';
 import 'package:flutter/material.dart';
 
 class CustomSliverAppBar extends SliverPersistentHeaderDelegate {

@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:app_movil_civil/global/environment.dart';
+import 'package:app_movil_oficial/global/environment.dart';
 
 Usuario usuarioFromJson(String str) => Usuario.fromJson(json.decode(str));
 
@@ -19,7 +19,7 @@ class Usuario {
     this.email,
     this.img,
     this.uid,
-    this.role = "CIVIL_ROLE",
+    this.role = "OFICIAL_ROLE",
   });
 
   bool online;

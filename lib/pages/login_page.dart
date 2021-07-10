@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import 'package:app_movil_civil/helpers/mostrar_alerta.dart';
-import 'package:app_movil_civil/helpers/validar.dart';
-import 'package:app_movil_civil/services/auth_service.dart';
-import 'package:app_movil_civil/widgets/boton_principal.dart';
-import 'package:app_movil_civil/widgets/form_field_input.dart';
-import 'package:app_movil_civil/widgets/logo/appname_widget.dart';
-import 'package:app_movil_civil/widgets/logo/logo_widget.dart';
+import 'package:app_movil_oficial/helpers/mostrar_alerta.dart';
+import 'package:app_movil_oficial/helpers/validar.dart';
+import 'package:app_movil_oficial/services/auth_service.dart';
+import 'package:app_movil_oficial/widgets/boton_principal.dart';
+import 'package:app_movil_oficial/widgets/form_field_input.dart';
+import 'package:app_movil_oficial/widgets/logo/appname_widget.dart';
+import 'package:app_movil_oficial/widgets/logo/logo_widget.dart';
 
 class LoginPage extends StatefulWidget {
   // LoginPage({Key key}) : super(key: key);

@@ -1,4 +1,4 @@
-import 'package:app_movil_civil/services/BottomNavigationBarServices/ui_provider.dart';
+import 'package:app_movil_oficial/services/BottomNavigationBarServices/ui_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -1,15 +1,13 @@
-import 'package:app_movil_civil/models/civil.dart';
-import 'package:app_movil_civil/models/persona.dart';
-import 'package:app_movil_civil/models/usuario.dart';
-import 'package:app_movil_civil/pages/tapbar_page.dart';
-import 'package:app_movil_civil/services/auth_service.dart';
-import 'package:app_movil_civil/widgets/SliverAppBar/custom_sliverappbar.dart';
-import 'package:app_movil_civil/widgets/card/custom_card.dart';
-import 'package:app_movil_civil/widgets/custom_chip.dart';
-import 'package:app_movil_civil/widgets/custom_listtitle.dart';
-import 'package:app_movil_civil/widgets/perfil/chipsection_widget.dart';
-import 'package:app_movil_civil/widgets/perfil/description_multiline_widget.dart';
-import 'package:app_movil_civil/widgets/perfil/list_listtile_widget.dart';
+import 'package:app_movil_oficial/models/oficial.dart';
+import 'package:app_movil_oficial/models/persona.dart';
+import 'package:app_movil_oficial/models/usuario.dart';
+import 'package:app_movil_oficial/pages/tapbar_page.dart';
+import 'package:app_movil_oficial/services/auth_service.dart';
+import 'package:app_movil_oficial/widgets/SliverAppBar/custom_sliverappbar.dart';
+import 'package:app_movil_oficial/widgets/card/custom_card.dart';
+import 'package:app_movil_oficial/widgets/custom_listtitle.dart';
+import 'package:app_movil_oficial/widgets/perfil/description_multiline_widget.dart';
+import 'package:app_movil_oficial/widgets/perfil/list_listtile_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -45,8 +43,8 @@ class _PerfilPageState extends State<PerfilUserPage> {
           _available) {
         // _scrollPagePhysics = _scrollCustomPhysics;
         // _scrollCustomPhysics = NeverScrollableScrollPhysics();
-        print("_scrollPageController.position.pixels");
-        print(_scrollPageController.position.pixels);
+        // print("_scrollPageController.position.pixels");
+        // print(_scrollPageController.position.pixels);
         if (_scrollPageController.position.maxScrollExtent != 0.0) {
           _scrollPagePhysics = AlwaysScrollableScrollPhysics();
           _available = false;
@@ -55,7 +53,7 @@ class _PerfilPageState extends State<PerfilUserPage> {
       }
     });
     _scrollPageController.addListener(() {
-      print(_scrollPageController.position.pixels);
+      // print(_scrollPageController.position.pixels);
 
       if (_scrollPageController.position.pixels == 0.0 && !_available) {
         _scrollCustomPhysics = AlwaysScrollableScrollPhysics();
@@ -73,7 +71,7 @@ class _PerfilPageState extends State<PerfilUserPage> {
     final authService = Provider.of<AuthService>(context);
     Usuario usuario = authService.usuario;
     Persona persona = authService.persona;
-    Civil civil = authService.civil;
+    Oficial oficial = authService.oficial;
 
     _systemChromeColor(Brightness.light, context);
 
@@ -93,18 +91,18 @@ class _PerfilPageState extends State<PerfilUserPage> {
               subtitle: usuario?.nombre ?? "nulo",
               fotoUrl: usuario?.img ?? "",
               cards: [
-                CustomCard(
-                  height: expandedHeight / 3,
-                  icon: Icon(Icons.work_outline, size: 14),
-                  icontext: civil.denuncias.length.toString(),
-                  text: 'Reportes',
-                ),
-                CustomCard(
-                  height: expandedHeight / 3,
-                  icon: Icon(Icons.star_rate, size: 14, color: Colors.yellow),
-                  icontext: civil.reputacion.toString(),
-                  text: 'Reputacion',
-                ),
+                // CustomCard(
+                //   height: expandedHeight / 3,
+                //   icon: Icon(Icons.work_outline, size: 14),
+                //   icontext: oficial.denuncias.length.toString(),
+                //   text: 'Reportes',
+                // ),
+                // CustomCard(
+                //   height: expandedHeight / 3,
+                //   icon: Icon(Icons.star_rate, size: 14, color: Colors.yellow),
+                //   icontext: oficial.reputacion.toString(),
+                //   text: 'Reputacion',
+                // ),
               ]),
           pinned: true,
           // floating: true,
@@ -112,7 +110,7 @@ class _PerfilPageState extends State<PerfilUserPage> {
         SliverList(
           delegate: SliverChildListDelegate([
             // SizedBox(height: MediaQuery.of(context).padding.top), //pinned
-            SizedBox(height: expandedHeight * 0.25), //pinned
+            SizedBox(height: expandedHeight * 0.1), //pinned
             SizedBox(
                 height: MediaQuery.of(context).size.height -
                     kBottomNavigationBarHeight * 2,
@@ -130,25 +128,15 @@ class _PerfilPageState extends State<PerfilUserPage> {
                           title: "Informacion de usuario",
                           children: contentDividerSection([
                             '${persona.nombre} ${persona.apellido}',
-                            persona.ci,
+                            oficial.dtm,
+                            oficial.codigo,
                             persona.celular,
-                            persona.direccion,
                             usuario.email
                           ]),
                         ),
-                        // ChipSectionWidget(
-                        //   title: 'Serivicios',
-                        //   children: [
-                        //     CustomChip(label: "Plomero"),
-                        //     CustomChip(label: "Plomero"),
-                        //     CustomChip(label: "Plomero"),
-                        //     CustomChip(label: "Plomero"),
-                        //     CustomChip(label: "Plomero"),
-                        //   ],
-                        // ),
                         DescriptionMultilineWidget(
                           title: "Descripcion",
-                          description: civil.descripcion,
+                          description: oficial.descripcion,
                         )
                       ],
                     ),
@@ -201,22 +189,23 @@ Widget contentDividerSection(List<String> list) {
   return Column(children: [
     ListTile(
         leading: Icon(Icons.person, color: Colors.black),
-        title: Text('Nombre Apellidos', style: TextStyle(fontSize: 14)),
+        title: Text('Nombre Apellido', style: TextStyle(fontSize: 14)),
         subtitle: Text(list[0])),
     Divider(height: 0),
     ListTile(
-        leading: Icon(Icons.perm_identity, color: Colors.black),
-        title: Text('CI', style: TextStyle(fontSize: 14)),
+        leading: Icon(Icons.person, color: Colors.black),
+        title: Text('Direccion de Transito y Movilidad',
+            style: TextStyle(fontSize: 14)),
         subtitle: Text(list[1])),
+    Divider(height: 0),
+    ListTile(
+        leading: Icon(Icons.perm_identity, color: Colors.black),
+        title: Text('Codigo', style: TextStyle(fontSize: 14)),
+        subtitle: Text(list[2])),
     Divider(height: 0),
     ListTile(
         leading: Icon(Icons.phone, color: Colors.black),
         title: Text('Celular', style: TextStyle(fontSize: 14)),
-        subtitle: Text(list[2])),
-    Divider(height: 0),
-    ListTile(
-        leading: Icon(Icons.location_on, color: Colors.black),
-        title: Text('Direccion', style: TextStyle(fontSize: 14)),
         subtitle: Text(list[3])),
     Divider(height: 0),
     ListTile(

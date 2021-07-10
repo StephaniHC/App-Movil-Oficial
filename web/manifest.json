@@ -1,6 +1,6 @@
 {
-    "name": "app_movil_civil",
-    "short_name": "app_movil_civil",
+    "name": "app_movil_oficial",
+    "short_name": "app_movil_oficial",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

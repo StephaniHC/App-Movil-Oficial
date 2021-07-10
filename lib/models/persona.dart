@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:app_movil_civil/global/environment.dart';
+import 'package:app_movil_oficial/global/environment.dart';
 
 Persona personaFromJson(String str) => Persona.fromJson(json.decode(str));
 

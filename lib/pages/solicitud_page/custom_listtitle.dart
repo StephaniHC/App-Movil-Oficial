@@ -1,5 +1,5 @@
-import 'package:app_movil_civil/widgets/SliverAppBar/image_circle_widget.dart';
-import 'package:app_movil_civil/widgets/custom_chip.dart';
+import 'package:app_movil_oficial/widgets/SliverAppBar/image_circle_widget.dart';
+import 'package:app_movil_oficial/widgets/custom_chip.dart';
 import 'package:flutter/material.dart';
 
 class CustomListile extends StatelessWidget {

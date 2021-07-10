@@ -1,7 +1,7 @@
-import 'package:app_movil_civil/widgets/boton_principal.dart';
-import 'package:app_movil_civil/widgets/customClipper.dart';
-import 'package:app_movil_civil/widgets/logo/appname_widget.dart';
-import 'package:app_movil_civil/widgets/logo/logo_widget.dart';
+import 'package:app_movil_oficial/widgets/boton_principal.dart';
+import 'package:app_movil_oficial/widgets/customClipper.dart';
+import 'package:app_movil_oficial/widgets/logo/appname_widget.dart';
+import 'package:app_movil_oficial/widgets/logo/logo_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

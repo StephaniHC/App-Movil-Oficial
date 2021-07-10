@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:app_movil_civil/pages/home_page.dart';
-import 'package:app_movil_civil/pages/welcome_page.dart';
-import 'package:app_movil_civil/services/auth_service.dart';
-import 'package:app_movil_civil/widgets/logo/appname_widget.dart';
-import 'package:app_movil_civil/widgets/logo/logo_widget.dart';
+import 'package:app_movil_oficial/pages/home_page.dart';
+import 'package:app_movil_oficial/pages/welcome_page.dart';
+import 'package:app_movil_oficial/services/auth_service.dart';
+import 'package:app_movil_oficial/widgets/logo/appname_widget.dart';
+import 'package:app_movil_oficial/widgets/logo/logo_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

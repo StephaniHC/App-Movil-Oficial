@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:app_movil_civil/global/environment.dart';
+import 'package:app_movil_oficial/global/environment.dart';
 
 Oficial oficialFromJson(String str) => Oficial.fromJson(json.decode(str));
 

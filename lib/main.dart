@@ -1,6 +1,6 @@
-import 'package:app_movil_civil/routes/routes.dart';
-import 'package:app_movil_civil/services/BottomNavigationBarServices/ui_provider.dart';
-import 'package:app_movil_civil/services/auth_service.dart';
+import 'package:app_movil_oficial/routes/routes.dart';
+import 'package:app_movil_oficial/services/BottomNavigationBarServices/ui_provider.dart';
+import 'package:app_movil_oficial/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -50,12 +50,12 @@ class _MyAppState extends State<MyApp> {
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Denuncias Civil',
+          title: 'Denuncias Oficial',
           navigatorKey: navigatorKey,
           // initialRoute: 'register_trabajador',
           initialRoute: 'loading',
           routes: appRoutes,
-          theme: ThemeData(primaryColor: Color.fromARGB(255, 255, 96, 0)),
+          theme: ThemeData(primaryColor: Color.fromARGB(255, 32, 217, 148)),
         ));
   }
 }

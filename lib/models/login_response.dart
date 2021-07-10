@@ -4,10 +4,9 @@
 
 import 'dart:convert';
 
-import 'package:app_movil_civil/models/civil.dart';
-import 'package:app_movil_civil/models/oficial.dart';
-import 'package:app_movil_civil/models/persona.dart';
-import 'package:app_movil_civil/models/usuario.dart';
+import 'package:app_movil_oficial/models/oficial.dart';
+import 'package:app_movil_oficial/models/persona.dart';
+import 'package:app_movil_oficial/models/usuario.dart';
 
 LoginResponse loginResponseFromJson(String str) =>
     LoginResponse.fromJson(json.decode(str));
@@ -19,24 +18,21 @@ class LoginResponse {
     this.ok,
     this.usuario,
     this.persona,
-    this.civil,
-    // this.oficial,
+    this.oficial,
     this.token,
   });
 
   bool ok;
   Usuario usuario;
   Persona persona;
-  Civil civil;
-  // Oficial oficial;
+  Oficial oficial;
   String token;
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
         ok: json["ok"],
         usuario: Usuario.fromJson(json["usuario"]),
         persona: Persona.fromJson(json["persona"]),
-        civil: Civil.fromJson(json["data"]),
-        // oficial: Oficial.fromJson(json["data"]),
+        oficial: Oficial.fromJson(json["data"]),
         token: json["token"],
       );
 
@@ -44,8 +40,7 @@ class LoginResponse {
         "ok": ok,
         "usuario": usuario.toJson(),
         "persona": persona.toJson(),
-        "civil": civil.toJson(),
-        // "oficial": oficial.toJson(),
+        "oficial": oficial.toJson(),
         "token": token,
       };
 }

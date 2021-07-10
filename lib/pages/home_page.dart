@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:app_movil_civil/pages/perfil_user_page.dart';
-import 'package:app_movil_civil/pages/solicitud_page/solicititud_page.dart';
-import 'package:app_movil_civil/services/BottomNavigationBarServices/ui_provider.dart';
-import 'package:app_movil_civil/services/auth_service.dart';
-import 'package:app_movil_civil/widgets/BottomNavigationBarWidget/custom_navigatorbar.dart';
+import 'package:app_movil_oficial/pages/perfil_user_page.dart';
+import 'package:app_movil_oficial/pages/solicitud_page/solicititud_page.dart';
+import 'package:app_movil_oficial/services/BottomNavigationBarServices/ui_provider.dart';
+import 'package:app_movil_oficial/services/auth_service.dart';
+import 'package:app_movil_oficial/widgets/BottomNavigationBarWidget/custom_navigatorbar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);

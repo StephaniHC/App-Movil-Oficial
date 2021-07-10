@@ -1,21 +1,19 @@
 import 'dart:convert';
 
-import 'package:app_movil_civil/global/environment.dart';
-import 'package:app_movil_civil/models/oficial.dart';
-import 'package:app_movil_civil/models/persona.dart';
+import 'package:app_movil_oficial/global/environment.dart';
+import 'package:app_movil_oficial/models/oficial.dart';
+import 'package:app_movil_oficial/models/persona.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:app_movil_civil/models/civil.dart';
-import 'package:app_movil_civil/models/usuario.dart';
-import 'package:app_movil_civil/models/login_response.dart';
+import 'package:app_movil_oficial/models/usuario.dart';
+import 'package:app_movil_oficial/models/login_response.dart';
 
 class AuthService with ChangeNotifier {
   Usuario usuario;
   Persona persona;
-  Civil civil;
-  // Oficial oficial;
+  Oficial oficial;
 
   bool _autenticando = false;
 
@@ -53,8 +51,7 @@ class AuthService with ChangeNotifier {
       final loginResponse = loginResponseFromJson(resp.body);
       this.usuario = loginResponse.usuario;
       this.persona = loginResponse.persona;
-      this.civil = loginResponse.civil;
-      // this.oficial = loginResponse.oficial;
+      this.oficial = loginResponse.oficial;
 
       await this._guardarToken(loginResponse.token);
 
@@ -101,8 +98,7 @@ class AuthService with ChangeNotifier {
       final loginResponse = loginResponseFromJson(resp.body);
       this.usuario = loginResponse.usuario;
       this.persona = loginResponse.persona;
-      this.civil = loginResponse.civil;
-      // this.oficial = loginResponse.oficial;
+      this.oficial = loginResponse.oficial;
       await this._guardarToken(loginResponse.token);
       return true;
     } else {

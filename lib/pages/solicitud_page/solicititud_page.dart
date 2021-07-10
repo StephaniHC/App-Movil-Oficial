@@ -1,5 +1,5 @@
-import 'package:app_movil_civil/pages/tapbar_page.dart';
-import 'package:app_movil_civil/widgets/custom_listtitle.dart';
+import 'package:app_movil_oficial/pages/tapbar_page.dart';
+import 'package:app_movil_oficial/widgets/custom_listtitle.dart';
 import 'package:flutter/material.dart';
 
 class HistorialPage extends StatelessWidget {
