@@ -1,3 +1,5 @@
+import 'package:app_movil_oficial/bloc/mapa/mapa_bloc.dart';
+import 'package:app_movil_oficial/bloc/mi_ubicacion/mi_ubicacion_bloc.dart';
 import 'package:app_movil_oficial/routes/routes.dart';
 import 'package:app_movil_oficial/services/BottomNavigationBarServices/ui_provider.dart';
 import 'package:app_movil_oficial/services/auth_service.dart';
@@ -5,6 +7,7 @@ import 'package:app_movil_oficial/services/notification_service.dart';
 import 'package:app_movil_oficial/services/socket_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -50,6 +53,8 @@ class _MyAppState extends State<MyApp> {
           ChangeNotifierProvider(create: (_) => AuthService()),
           ChangeNotifierProvider(create: (_) => SocketService()),
           ChangeNotifierProvider(create: (_) => UiProvider()),
+          BlocProvider(create: (_) => MiUbicacionBloc()),
+          BlocProvider(create: (_) => MapaBloc()),
           Provider(create: (_) => NotificationsService()),
         ],
         child: MaterialApp(
