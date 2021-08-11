@@ -31,13 +31,17 @@ StreamSocket streamSocket = StreamSocket();
 class _UbicacionPageState extends State<UbicacionPage> {
   SocketService socketService;
 
+  final _geolocator = new Geolocator();
+
+  final locationOptions =
+      LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 100);
   @override
   void initState() {
     this.socketService = Provider.of<SocketService>(context, listen: false);
 
     this.socketService.connect();
-    Geolocator.getPositionStream(desiredAccuracy: LocationAccuracy.high)
-        .listen((Position position) {
+
+    _geolocator.getPositionStream(locationOptions).listen((Position position) {
       if (position != null) {
         this.socketService.sendUbicacion(position.latitude, position.longitude);
       }
