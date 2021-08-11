@@ -1,3 +1,4 @@
+import 'package:app_movil_oficial/services/notification_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -44,8 +45,8 @@ class _HomePageBody extends StatelessWidget {
       case 1:
         // scanListProvider.cargarScanPorTipo('http');
         final authService = Provider.of<AuthService>(context);
-        // final notificacion =
-        // Provider.of<NotificationsService>(context, listen: false);
+        final notificacion =
+            Provider.of<NotificationsService>(context, listen: false);
         return Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -53,7 +54,7 @@ class _HomePageBody extends StatelessWidget {
               RaisedButton(
                 child: Text('Logout'),
                 onPressed: () async {
-                  // await notificacion.borrarTokenFCMServices();
+                  await notificacion.borrarTokenFCMServices();
                   authService.logout();
                   Navigator.pushReplacementNamed(context, 'login');
                 },

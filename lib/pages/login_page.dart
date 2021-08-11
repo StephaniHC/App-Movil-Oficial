@@ -1,3 +1,4 @@
+import 'package:app_movil_oficial/services/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -133,8 +134,8 @@ class __FormState extends State<_Form> {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
-    // final notificacion =
-    //     Provider.of<NotificationsService>(context, listen: false);
+    final notificacion =
+        Provider.of<NotificationsService>(context, listen: false);
 
     return Container(
       margin: EdgeInsets.only(top: 40),
@@ -179,9 +180,11 @@ class __FormState extends State<_Form> {
                           emailCtrl.text.trim(), passCtrl.text.trim());
 
                       if (loginOk) {
-                        //   notificacion.guardarTokenFCMServices();
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, 'home', (Route<dynamic> route) => false);
+                        notificacion.guardarTokenFCMServices();
+                        // Navigator.pushNamedAndRemoveUntil(
+                        //     context, 'home', (Route<dynamic> route) => false);
+                        Navigator.pushNamedAndRemoveUntil(context, 'ubicacion',
+                            (Route<dynamic> route) => false);
                       } else {
                         mostrarAlerta(context, 'Login incorrecto',
                             'Revise sus Credenciales');

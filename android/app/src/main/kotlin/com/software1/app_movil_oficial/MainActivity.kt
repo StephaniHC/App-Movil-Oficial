@@ -1,4 +1,4 @@
-package com.example.app_movil_oficial
+package com.software1.app_movil_oficial
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -38,7 +38,9 @@ dependencies:
   mime_type:
   rxdart: ^0.25.0
   http_parser: ^3.1.4
-  # firebase_messaging: ^7.0.3
+  geolocator: ^6.2.1
+  socket_io_client: ^1.0.1
+  firebase_messaging: ^7.0.3
 
 dev_dependencies:
   flutter_test:
