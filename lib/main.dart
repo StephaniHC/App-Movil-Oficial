@@ -1,3 +1,4 @@
+import 'package:app_movil_oficial/bloc/busqueda/busqueda_bloc.dart';
 import 'package:app_movil_oficial/bloc/mapa/mapa_bloc.dart';
 import 'package:app_movil_oficial/bloc/mi_ubicacion/mi_ubicacion_bloc.dart';
 import 'package:app_movil_oficial/routes/routes.dart';
@@ -57,15 +58,17 @@ class _MyAppState extends State<MyApp> {
           ChangeNotifierProvider(create: (_) => DenunciaSolicitudService()),
           ChangeNotifierProvider(create: (_) => SocketService()),
           ChangeNotifierProvider(create: (_) => UiProvider()),
-          BlocProvider(create: (_) => MiUbicacionBloc()),
-          BlocProvider(create: (_) => MapaBloc()),
           Provider(create: (_) => NotificationsService()),
+          BlocProvider(create: ( _ ) => MiUbicacionBloc() ),
+          BlocProvider(create: ( _ ) => MapaBloc()),
+          BlocProvider(create: ( _ ) => BusquedaBloc()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Denuncias Oficial',
           navigatorKey: navigatorKey,
-          initialRoute: 'loading',
+          // initialRoute: 'register_trabajador',
+          initialRoute: 'loading1',
           routes: appRoutes,
           theme: ThemeData(primaryColor: Color.fromARGB(255, 32, 217, 148)),
         ));
