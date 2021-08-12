@@ -17,5 +17,5 @@ import 'package:app_movil_oficial/bloc/mi_ubicacion/mi_ubicacion_bloc.dart';
 part 'btn_ubicacion.dart';
 part 'btn_mi_ruta.dart';
 part 'btn_seguir_ubicacion.dart';
-part 'searchBar.dart';
+part 'searchbar.dart';
 part 'marcador_manual.dart';
