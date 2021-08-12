@@ -41,16 +41,16 @@ class _UbicacionPageState extends State<UbicacionPage> {
 
     this.socketService.connect();
 
-    _geolocator.getPositionStream(locationOptions).listen((Position position) {
-      if (position != null) {
-        this.socketService.sendUbicacion(position.latitude, position.longitude);
-      }
-      print(position == null
-          ? 'Unknown'
-          : position.latitude.toString() +
-              ', ' +
-              position.longitude.toString());
-    });
+    // _geolocator.getPositionStream(locationOptions).listen((Position position) {
+    //   if (position != null) {
+    //     this.socketService.sendUbicacion(position.latitude, position.longitude);
+    //   }
+    //   print(position == null
+    //       ? 'Unknown'
+    //       : position.latitude.toString() +
+    //           ', ' +
+    //           position.longitude.toString());
+    // });
 
     // streamSocket.addResponse(this.socketService.escucharDenuncia());
     // this

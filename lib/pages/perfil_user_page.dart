@@ -1,8 +1,10 @@
 import 'package:app_movil_oficial/models/oficial.dart';
 import 'package:app_movil_oficial/models/persona.dart';
 import 'package:app_movil_oficial/models/usuario.dart';
+import 'package:app_movil_oficial/native/background_location.dart';
 import 'package:app_movil_oficial/pages/tapbar_page.dart';
 import 'package:app_movil_oficial/services/auth_service.dart';
+import 'package:app_movil_oficial/services/notification_service.dart';
 import 'package:app_movil_oficial/services/socket_service.dart';
 import 'package:app_movil_oficial/widgets/SliverAppBar/custom_sliverappbar.dart';
 import 'package:app_movil_oficial/widgets/card/custom_card.dart';
@@ -12,6 +14,7 @@ import 'package:app_movil_oficial/widgets/perfil/list_listtile_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:provider/provider.dart';
 
@@ -42,10 +45,6 @@ class _PerfilPageState extends State<PerfilUserPage> {
       if (_scrollCustomController.position.pixels ==
               _scrollCustomController.position.maxScrollExtent &&
           _available) {
-        // _scrollPagePhysics = _scrollCustomPhysics;
-        // _scrollCustomPhysics = NeverScrollableScrollPhysics();
-        // print("_scrollPageController.position.pixels");
-        // print(_scrollPageController.position.pixels);
         if (_scrollPageController.position.maxScrollExtent != 0.0) {
           _scrollPagePhysics = AlwaysScrollableScrollPhysics();
           _available = false;
@@ -70,6 +69,8 @@ class _PerfilPageState extends State<PerfilUserPage> {
   @override
   Widget build(BuildContext context) {
     final socketService = Provider.of<SocketService>(context, listen: false);
+    final notificacion =
+        Provider.of<NotificationsService>(context, listen: false);
 
     final authService = Provider.of<AuthService>(context);
     Usuario usuario = authService.usuario;
@@ -80,9 +81,6 @@ class _PerfilPageState extends State<PerfilUserPage> {
 
     _systemChromeColor(Brightness.light, context);
 
-    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    //   statusBarColor: Color(0xFF2E7D32),
-    // ));
     final expandedHeight = MediaQuery.of(context).size.height * .3;
 
     return CustomScrollView(
@@ -96,33 +94,32 @@ class _PerfilPageState extends State<PerfilUserPage> {
               subtitle: usuario?.nombre ?? "nulo",
               fotoUrl: usuario?.img ?? "",
               isOn: isOn,
-              logout: () {
+              logout: () async {
                 authService.logout();
+                await notificacion.borrarTokenFCMServices();
+                authService.logout();
+                Navigator.pushReplacementNamed(context, 'login');
               },
               switchOnOff: () async {
                 if (!isOn) {
                   socketService.connect();
+                  BackgroundLocation.instance.start();
+
+                  BackgroundLocation.instance.stream.listen((LatLng position) {
+                    print('socket ' + position.toString());
+                    socketService.sendUbicacion(
+                        position.latitude, position.longitude);
+                  });
+
                   isOn = true;
                 } else {
+                  BackgroundLocation.instance.stop();
                   socketService.disconnect();
                   isOn = false;
                 }
                 setState(() {});
               },
-              cards: [
-                // CustomCard(
-                //   height: expandedHeight / 3,
-                //   icon: Icon(Icons.work_outline, size: 14),
-                //   icontext: oficial.denuncias.length.toString(),
-                //   text: 'Reportes',
-                // ),
-                // CustomCard(
-                //   height: expandedHeight / 3,
-                //   icon: Icon(Icons.star_rate, size: 14, color: Colors.yellow),
-                //   icontext: oficial.reputacion.toString(),
-                //   text: 'Reputacion',
-                // ),
-              ]),
+              cards: []),
           pinned: true,
           // floating: true,
         ),
@@ -166,14 +163,6 @@ class _PerfilPageState extends State<PerfilUserPage> {
                     physics: _scrollPagePhysics,
                     child: Column(
                       children: [
-                        // FlatButton(
-                        //     onPressed: () {
-                        //       _scrollOn();
-                        //       print('_scroll on btn');
-                        //     },
-                        //     child: Text('sd')),
-
-                        //TODO aqui envio detalle de denuncias
                         CustomListile(),
                         CustomListile(),
                         CustomListile(),

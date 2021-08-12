@@ -109,9 +109,7 @@ class CustomSliverAppBar extends SliverPersistentHeaderDelegate {
                     child: ElevatedButton(
                       // style: TextButton.styleFrom(
                       //     backgroundColor: Colors.blue, primary: Colors.white),
-                      onPressed: () {
-                        print('ad');
-                      },
+                      onPressed: logout,
                       child: Icon(
                         Icons.logout,
                       ),

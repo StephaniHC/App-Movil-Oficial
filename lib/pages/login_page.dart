@@ -183,8 +183,8 @@ class __FormState extends State<_Form> {
                         notificacion.guardarTokenFCMServices();
                         // Navigator.pushNamedAndRemoveUntil(
                         //     context, 'home', (Route<dynamic> route) => false);
-                        Navigator.pushNamedAndRemoveUntil(context, 'ubicacion',
-                            (Route<dynamic> route) => false);
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, 'home', (Route<dynamic> route) => false);
                       } else {
                         mostrarAlerta(context, 'Login incorrecto',
                             'Revise sus Credenciales');
