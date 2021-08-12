@@ -3,6 +3,7 @@ import 'package:app_movil_oficial/models/persona.dart';
 import 'package:app_movil_oficial/models/usuario.dart';
 import 'package:app_movil_oficial/pages/tapbar_page.dart';
 import 'package:app_movil_oficial/services/auth_service.dart';
+import 'package:app_movil_oficial/services/socket_service.dart';
 import 'package:app_movil_oficial/widgets/SliverAppBar/custom_sliverappbar.dart';
 import 'package:app_movil_oficial/widgets/card/custom_card.dart';
 import 'package:app_movil_oficial/widgets/custom_listtitle.dart';
@@ -68,10 +69,14 @@ class _PerfilPageState extends State<PerfilUserPage> {
 
   @override
   Widget build(BuildContext context) {
+    final socketService = Provider.of<SocketService>(context, listen: false);
+
     final authService = Provider.of<AuthService>(context);
     Usuario usuario = authService.usuario;
     Persona persona = authService.persona;
     Oficial oficial = authService.oficial;
+
+    bool isOn = socketService.isconnected;
 
     _systemChromeColor(Brightness.light, context);
 
@@ -90,6 +95,20 @@ class _PerfilPageState extends State<PerfilUserPage> {
               title: '',
               subtitle: usuario?.nombre ?? "nulo",
               fotoUrl: usuario?.img ?? "",
+              isOn: isOn,
+              logout: () {
+                authService.logout();
+              },
+              switchOnOff: () async {
+                if (!isOn) {
+                  socketService.connect();
+                  isOn = true;
+                } else {
+                  socketService.disconnect();
+                  isOn = false;
+                }
+                setState(() {});
+              },
               cards: [
                 // CustomCard(
                 //   height: expandedHeight / 3,

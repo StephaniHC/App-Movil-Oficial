@@ -12,6 +12,7 @@ enum ServerStatus { Online, Offline, Connecting }
 class SocketService with ChangeNotifier {
   ServerStatus _serverStatus = ServerStatus.Connecting;
   IO.Socket _socket;
+  bool isconnected = false;
 
   ServerStatus get serverStatus => this._serverStatus;
 
@@ -19,6 +20,7 @@ class SocketService with ChangeNotifier {
   Function get emit => this._socket.emit;
 
   void connect() async {
+    isconnected = true;
     final token = await AuthService.getToken();
 
     // Dart client
@@ -65,16 +67,17 @@ class SocketService with ChangeNotifier {
     }
   }
 
-  escucharDenuncia() {
-    this._socket.on('denuncia', (data) {
-      print(data);
-      print('data');
-      // return data;
-    });
-    // notifyListeners();
-  }
+  // escucharDenuncia() {
+  //   this._socket.on('denuncia', (data) {
+  //     print(data);
+  //     print('data');
+  //     // return data;
+  //   });
+  //   // notifyListeners();
+  // }
 
   void disconnect() {
+    isconnected = false;
     this._socket.disconnect();
   }
 }

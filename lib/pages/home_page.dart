@@ -17,6 +17,7 @@ class HomePage extends StatelessWidget {
     final authService = Provider.of<AuthService>(context);
     // final notificacion =
     // Provider.of<NotificationsService>(context, listen: false);
+
     return Scaffold(
         bottomNavigationBar: CustomNavigationBar(), body: _HomePageBody());
   }
@@ -26,9 +27,14 @@ class _HomePageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Obtener el selected menu opt
+    // String indexArguments = ModalRoute.of(context).settings.arguments;
     final uiProvider = Provider.of<UiProvider>(context);
 
     // Cambiar para mostrar la pagina respectiva
+    // if (indexArguments!=null) {
+
+    // }else
+
     final currentIndex = uiProvider.selectedMenuOpt;
 
     // Usar el ScanListProvider

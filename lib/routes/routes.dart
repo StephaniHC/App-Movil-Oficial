@@ -1,4 +1,5 @@
 import 'package:app_movil_oficial/pages/acceso_gps_page.dart';
+import 'package:app_movil_oficial/pages/denuncia_page/denuncias_page.dart';
 import 'package:app_movil_oficial/pages/loading_page1.dart';
 import 'package:app_movil_oficial/pages/mapa_page.dart';
 import 'package:app_movil_oficial/pages/ubicacion_page.dart';
@@ -18,4 +19,5 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'mapa': (_) => MapaPage(),
   'loading1': (_) => LoadingPage1(),
   'acceso_gps': (_) => AccesoGpsPage(),
+  'denuncia': (_) => DenunciasPage(),
 };

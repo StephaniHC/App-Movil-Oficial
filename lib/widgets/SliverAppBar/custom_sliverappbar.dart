@@ -7,12 +7,18 @@ class CustomSliverAppBar extends SliverPersistentHeaderDelegate {
   final String title;
   final String subtitle;
   final String fotoUrl;
+  final Function logout;
+  final Function switchOnOff;
+  final bool isOn;
 
   CustomSliverAppBar(
       {@required this.expandedHeight,
       @required this.cards,
       @required this.title,
       @required this.subtitle,
+      this.logout,
+      this.switchOnOff,
+      this.isOn,
       @required this.fotoUrl});
 
   @override
@@ -77,6 +83,52 @@ class CustomSliverAppBar extends SliverPersistentHeaderDelegate {
                         fontWeight: FontWeight.w700,
                         fontSize: 23,
                       ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Positioned(
+          // top: expandedHeight / 7 - shrinkOffset,
+
+          top: expandedHeight * .3 -
+              MediaQuery.of(context).padding.top -
+              shrinkOffset,
+          // top: MediaQuery.of(context).padding.top - shrinkOffset,
+          left: MediaQuery.of(context).size.width * .05,
+          right: MediaQuery.of(context).size.width * .05,
+          child: SafeArea(
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.centerRight,
+                  child: Opacity(
+                    opacity: (1 - shrinkOffset / expandedHeight),
+                    child: ElevatedButton(
+                      // style: TextButton.styleFrom(
+                      //     backgroundColor: Colors.blue, primary: Colors.white),
+                      onPressed: () {
+                        print('ad');
+                      },
+                      child: Icon(
+                        Icons.logout,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.centerRight,
+                  child: Opacity(
+                    opacity: (1 - shrinkOffset / expandedHeight),
+                    child: ElevatedButton(
+                      style: TextButton.styleFrom(
+                          backgroundColor:
+                              this.isOn ? Colors.red : Colors.yellow,
+                          primary: Colors.white),
+                      onPressed: this.switchOnOff,
+                      child: Icon(this.isOn ? Icons.public : Icons.public_off),
                     ),
                   ),
                 ),

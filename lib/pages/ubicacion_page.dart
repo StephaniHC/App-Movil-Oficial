@@ -52,11 +52,11 @@ class _UbicacionPageState extends State<UbicacionPage> {
               position.longitude.toString());
     });
 
-    streamSocket.addResponse(this.socketService.escucharDenuncia());
-    this
-        .socketService
-        .socket
-        .on('denuncia', (data) => {streamSocket.addResponse('d'), print(data)});
+    // streamSocket.addResponse(this.socketService.escucharDenuncia());
+    // this
+    //     .socketService
+    //     .socket
+    //     .on('denuncia', (data) => {streamSocket.addResponse('d'), print(data)});
     super.initState();
   }
 

@@ -26,7 +26,7 @@ class Oficial {
   List<String> denuncias;
 
   factory Oficial.fromJson(Map<String, dynamic> json) => Oficial(
-        id: json["id"],
+        id: json["_id"],
         descripcion: json["descripcion"],
         disponible: json["disponible"],
         codigo: json["codigo"],
