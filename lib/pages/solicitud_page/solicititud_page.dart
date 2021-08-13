@@ -232,13 +232,15 @@ class HistorialPage extends StatelessWidget {
   }
 
   void calcularDestino(BuildContext context, LatLng destino) async {
-    // calculandoAlerta(context);
-
     final trafficService = new TrafficService();
     final mapaBloc = context.bloc<MapaBloc>();
 
     final inicio = context.bloc<MiUbicacionBloc>().state.ubicacion;
     // final destino = mapaBloc.state.ubicacionCentral;
+
+    //aqui obtenemos la info del destino
+    final reverseQueryResponse =
+        await trafficService.getCoordenadasInfo(destino);
 
     final trafficResponse =
         await trafficService.getCoordsInicioYDestino(inicio, destino);
@@ -246,6 +248,7 @@ class HistorialPage extends StatelessWidget {
     final geometry = trafficResponse.routes[0].geometry;
     final duracion = trafficResponse.routes[0].duration;
     final distancia = trafficResponse.routes[0].distance;
+    final nombreDestino = reverseQueryResponse.features[0].text;
 
     // Decodificar los puntos del geometry
     final points = Poly.Polyline.Decode(encodedString: geometry, precision: 6)
@@ -253,8 +256,8 @@ class HistorialPage extends StatelessWidget {
     final List<LatLng> rutaCoordenadas =
         points.map((point) => LatLng(point[0], point[1])).toList();
 
-    mapaBloc
-        .add(OnCrearRutaInicioDestino(rutaCoordenadas, distancia, duracion));
+    mapaBloc.add(OnCrearRutaInicioDestino(
+        rutaCoordenadas, distancia, duracion, nombreDestino));
 
     mapaBloc.add(OnSeguirUbicacion());
 

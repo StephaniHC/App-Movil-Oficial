@@ -1,7 +1,8 @@
 import 'dart:async';
 
+import 'package:app_movil_oficial/helpers/helpers.dart';
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart' show Colors;
+import 'package:flutter/material.dart' show Colors, Offset;
 import 'package:meta/meta.dart';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -104,9 +105,50 @@ class MapaBloc extends Bloc<MapaEvent, MapaState> {
     final currentPolylines = state.polylines;
     currentPolylines['mi_ruta_destino'] = this._miRutaDestino;
 
-    yield state.copyWith(
-      polylines: currentPolylines,
-      // TODO: Marcadores
-    );
+    // yield state.copyWith(
+    //   polylines: currentPolylines,
+    //   // TODO: Marcadores
+    // );
+    //Marcadores
+    double kilometros = event.distancia / 1000;
+    kilometros = (kilometros * 100).floor().toDouble();
+    kilometros = kilometros / 100;
+
+    // Icono destino
+    final iconoInicio = await getAssetImageMarker('inicio');
+    final iconoDestino = await getAssetImageMarker('destino');
+
+    //marcador inicio
+    final markerInicio = new Marker(
+        icon: iconoInicio,
+        anchor: Offset(0.0, 1.0),
+        markerId: MarkerId('inicio'),
+        position: event.rutaCoordenadas[0],
+        infoWindow: InfoWindow(
+          title: 'Mi Ubicación',
+          snippet:
+              'Duración recorrido: ${(event.duracion / 60).floor()} minutos',
+        ));
+
+    final markerDestino = new Marker(
+        icon: iconoDestino,
+        markerId: MarkerId('destino'),
+        position: event.rutaCoordenadas[event.rutaCoordenadas.length - 1],
+        anchor: Offset(0.1, 0.90),
+        infoWindow: InfoWindow(
+          title: event.nombreDestino,
+          snippet: 'Distancia: $kilometros Km',
+        ));
+
+    final newMarkers = {...state.markers};
+    newMarkers['inicio'] = markerInicio;
+    newMarkers['destino'] = markerDestino;
+
+    Future.delayed(Duration(milliseconds: 300)).then((value) {
+      //_mapController.showMarkerInfoWindow(MarkerId('inicio'));
+      _mapController.showMarkerInfoWindow(MarkerId('destino'));
+    });
+
+    yield state.copyWith(polylines: currentPolylines, markers: newMarkers);
   }
 }
