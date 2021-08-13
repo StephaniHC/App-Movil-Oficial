@@ -16,15 +16,15 @@ class AppNameWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Golden',
+              'Yo',
               style: TextStyle(
                 fontSize: 34,
                 fontFamily: "Cabin",
                 fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 252, 96, 17),
+                color: Theme.of(context).primaryColor,
               ),
             ),
-            Text('Hands',
+            Text('Oficial',
                 style: TextStyle(
                     fontSize: 34,
                     fontFamily: "Cabin",

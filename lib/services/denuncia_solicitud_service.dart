@@ -22,6 +22,8 @@ class DenunciaSolicitudService with ChangeNotifier {
   final _storage = new FlutterSecureStorage();
 
   Future<bool> getDenunciaNotificada(String denuncia) async {
+    if (denuncia == null) return false;
+
     this.idDenuncia = denuncia;
 
     final token = await this._storage.read(key: 'token');
@@ -53,18 +55,16 @@ class DenunciaSolicitudService with ChangeNotifier {
     final resp = await http.post('${Environment.apiUrl}/denuncias/atender',
         body: jsonEncode(data),
         headers: {'Content-Type': 'application/json', 'x-token': token});
-
+    this.limpiarDenuncia();
     if (resp.statusCode == 200) {
-      // final denunciaResponse = denunciaResponseFromJson(resp.body);
-      // this.denuncia = denunciaResponse.denuncia;
-      // this.usuario = denunciaResponse.usuario;
-      // this.persona = denunciaResponse.persona;
-      // this.oficial = denunciaResponse.oficial;
-
       return true;
     } else {
       return false;
     }
+  }
+
+  void limpiarDenuncia() {
+    this.idDenuncia = '';
   }
 
   // Aceptar denuncia

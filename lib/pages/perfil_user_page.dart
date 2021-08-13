@@ -95,9 +95,13 @@ class _PerfilPageState extends State<PerfilUserPage> {
               fotoUrl: usuario?.img ?? "",
               isOn: isOn,
               logout: () async {
-                authService.logout();
                 await notificacion.borrarTokenFCMServices();
                 authService.logout();
+
+                BackgroundLocation.instance.stop();
+                print('socketService.isconnected');
+                print(socketService.isconnected);
+                if (socketService.isconnected) socketService.disconnect();
                 Navigator.pushReplacementNamed(context, 'login');
               },
               switchOnOff: () async {

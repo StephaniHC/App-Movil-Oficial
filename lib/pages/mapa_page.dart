@@ -1,3 +1,4 @@
+import 'package:app_movil_oficial/bloc/busqueda/busqueda_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -22,7 +23,7 @@ class _MapaPageState extends State<MapaPage> {
 
   @override
   void dispose() {
-    context.bloc<MiUbicacionBloc>().cancelarSeguimiento();
+    // context.bloc<MiUbicacionBloc>().cancelarSeguimiento();
     super.dispose();
   }
 
@@ -33,16 +34,16 @@ class _MapaPageState extends State<MapaPage> {
         children: [
           BlocBuilder<MiUbicacionBloc, MiUbicacionState>(
               builder: (_, state) => crearMapa(state)),
-          Positioned(top: 10, child: SearchBar()),
+          // Positioned(top: 10, child: SearchBar()),
           MarcadorManual(),
         ],
       ),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          BtnUbicacion(),
-          BtnSeguirUbicacion(),
-          BtnMiRuta(),
+          // BtnUbicacion(),
+          // BtnSeguirUbicacion(),
+          // BtnMiRuta(),
         ],
       ),
     );
@@ -68,13 +69,11 @@ class _MapaPageState extends State<MapaPage> {
           onMapCreated: mapaBloc.initMapa,
           polylines: mapaBloc.state.polylines.values.toSet(),
           onCameraMove: (cameraPosition) {
-        // cameraPosition.target = LatLng central del mapa
+            // cameraPosition.target = LatLng central del mapa
             mapaBloc.add(OnMovioMapa(cameraPosition.target));
+          },
+        );
       },
     );
-      },
-    );
-
-    
   }
 }

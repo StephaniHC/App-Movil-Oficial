@@ -1,23 +1,32 @@
+import 'dart:async';
+
 import 'package:app_movil_oficial/helpers/mostrar_alerta.dart';
+import 'package:app_movil_oficial/native/background_location.dart';
 import 'package:app_movil_oficial/pages/mapa_page.dart';
 import 'package:app_movil_oficial/services/BottomNavigationBarServices/ui_provider.dart';
 import 'package:app_movil_oficial/services/auth_service.dart';
 import 'package:app_movil_oficial/services/denuncia_service.dart';
 import 'package:app_movil_oficial/services/denuncia_solicitud_service.dart';
+import 'package:app_movil_oficial/services/socket_service.dart';
 import 'package:app_movil_oficial/widgets/boton_principal.dart';
 import 'package:app_movil_oficial/widgets/card/custom_listtitle_perfil.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class DenunciasPage extends StatelessWidget {
-  const DenunciasPage({Key key}) : super(key: key);
+  // const DenunciasPage({Key key}) : super(key: key);
+  DenunciasPage({Key key}) : super(key: key);
+
+  final _mapaPage = MapaPage();
 
   @override
   Widget build(BuildContext context) {
     final denunciaSolicitudService =
         Provider.of<DenunciaSolicitudService>(context, listen: false);
 
-    final String denuncia = ModalRoute.of(context).settings.arguments;
+    String denuncia = ModalRoute.of(context).settings.arguments;
+
+    denuncia ??= denunciaSolicitudService.idDenuncia;
 
     return Scaffold(
         appBar: AppBar(
@@ -28,59 +37,66 @@ class DenunciasPage extends StatelessWidget {
             future: denunciaSolicitudService.getDenunciaNotificada(denuncia),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return Column(
-                  children: [
-                    Container(height: 300, child: cardMapa(context)),
-                    CustomListilePerfil(
-                        img: denunciaSolicitudService.usuario.img,
-                        header: "Reportado por:",
-                        title: denunciaSolicitudService.persona.nombre +
-                            denunciaSolicitudService.persona.apellido,
-                        subtitle: denunciaSolicitudService.persona.ci,
-                        description:
-                            denunciaSolicitudService.denuncia.descripcion),
-                    SizedBox(
-                      height: 15,
-                    ),
+                if (snapshot.data) {
+                  return Column(
+                    children: [
+                      Container(height: 300, child: cardMapa(context)),
+                      CustomListilePerfil(
+                          img: denunciaSolicitudService.usuario.img,
+                          header: "Reportado por:",
+                          title: denunciaSolicitudService.persona.nombre +
+                              denunciaSolicitudService.persona.apellido,
+                          subtitle: denunciaSolicitudService.persona.ci,
+                          description:
+                              denunciaSolicitudService.denuncia.descripcion),
 
-                    // Multimedia
-                    Container(
-                        margin: EdgeInsets.only(left: 15),
-                        alignment: Alignment.centerLeft,
-                        child: Text('Respaldo Multimedia')),
+                      SizedBox(height: 15),
 
-                    Container(
-                        height: 200,
-                        child: listCard(context,
-                            denunciaSolicitudService.denuncia.multimedia)),
+                      // Multimedia
+                      Container(
+                          margin: EdgeInsets.only(left: 15),
+                          alignment: Alignment.centerLeft,
+                          child: Text('Respaldo Multimedia')),
 
-                    //Boton aceptar Rechazar
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: BotonPrincipal(
-                              text: "Rechazar",
-                              color: Colors.white,
-                              textColor: Theme.of(context).primaryColor,
-                              onPressed: () {},
-                            ),
-                          ),
-                          SizedBox(width: 10),
-                          Expanded(
+                      Container(
+                          height: 200,
+                          child: listCard(context,
+                              denunciaSolicitudService.denuncia.multimedia)),
+
+                      //Boton aceptar Rechazar
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: Row(
+                          children: [
+                            Expanded(
                               flex: 1,
                               child: BotonPrincipal(
-                                  text: "Aceptar",
-                                  onPressed: () async {
-                                    await aceptarSolicitud(context);
-                                  })),
-                        ],
-                      ),
-                    )
-                  ],
-                );
+                                text: "Rechazar",
+                                color: Colors.white,
+                                textColor: Theme.of(context).primaryColor,
+                                onPressed: () {
+                                  rechazarSolicitud(context);
+                                },
+                              ),
+                            ),
+                            SizedBox(width: 10),
+                            Expanded(
+                                flex: 1,
+                                child: BotonPrincipal(
+                                    text: "Aceptar",
+                                    onPressed: () async {
+                                      await aceptarSolicitud(context);
+                                    })),
+                          ],
+                        ),
+                      )
+                    ],
+                  );
+                } else {
+                  return Container(
+                    child: Text('No hay denuncia'),
+                  );
+                }
               } else {
                 return Container(
                     height: MediaQuery.of(context).size.height * 0.9,
@@ -93,21 +109,43 @@ class DenunciasPage extends StatelessWidget {
 
   Future aceptarSolicitud(BuildContext context) async {
     final authService = Provider.of<AuthService>(context, listen: false);
+    String oficial = authService.oficial.id;
 
     final uiProvider = Provider.of<UiProvider>(context, listen: false);
     final denunciaSolicitudService =
         Provider.of<DenunciaSolicitudService>(context, listen: false);
 
-    String oficial = authService.oficial.id;
     bool atendioOk = await denunciaSolicitudService.atenderDenuncia(oficial);
     if (atendioOk) {
+      //apagar conexxion
+      BackgroundLocation.instance.stop();
+      final socketService = Provider.of<SocketService>(context, listen: false);
+      socketService.disconnect();
+
       uiProvider.selectedMenuOpt = 3;
-      Navigator.pushNamed(context, 'home');
+
+      Navigator.pushReplacementNamed(context, 'home');
     } else {
       mostrarAlerta(context, 'Solicitud no atendida',
           'La denuncia ya ha sido atentida por otro oficial');
-      Navigator.pushNamed(context, 'home');
+
+      Timer(Duration(seconds: 3), () {
+        Navigator.pushReplacementNamed(context, 'home');
+      });
     }
+  }
+
+  void rechazarSolicitud(BuildContext context) {
+    final denunciaSolicitudService =
+        Provider.of<DenunciaSolicitudService>(context, listen: false);
+
+    denunciaSolicitudService.limpiarDenuncia();
+
+    mostrarAlerta(context, "Solicitud no atendida", "Has omitido la denuncia");
+
+    Timer(Duration(seconds: 5), () {
+      Navigator.pushReplacementNamed(context, 'home');
+    });
   }
 
   Widget cardMapa(BuildContext context) {
@@ -124,7 +162,7 @@ class DenunciasPage extends StatelessWidget {
         child: Column(
           // mainAxisSize: MainAxisSize.max,
           children: [
-            Expanded(child: MapaPage()),
+            Expanded(child: _mapaPage),
             Container(
               padding: EdgeInsets.all(15),
               width: MediaQuery.of(context).size.width,

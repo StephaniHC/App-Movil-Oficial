@@ -45,7 +45,8 @@ class _MyAppState extends State<MyApp> {
       print(data);
       // navigatorKey.currentState.pushNamed('login', arguments: data);
 
-      navigatorKey.currentState.pushNamed('denuncia', arguments: data);
+      navigatorKey.currentState
+          .pushReplacementNamed('denuncia', arguments: data);
     });
   }
 
@@ -68,7 +69,7 @@ class _MyAppState extends State<MyApp> {
           title: 'Denuncias Oficial',
           navigatorKey: navigatorKey,
           // initialRoute: 'register_trabajador',
-          initialRoute: 'loading',
+          initialRoute: 'loading1',
           routes: appRoutes,
           theme: ThemeData(primaryColor: Color.fromARGB(255, 32, 217, 148)),
         ));

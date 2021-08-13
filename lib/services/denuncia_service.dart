@@ -50,5 +50,22 @@ class DenunciaService with ChangeNotifier {
       return false;
     }
   }
+
+  Future<bool> terminarDenuncia() async {
+    final token = await this._storage.read(key: 'token');
+
+    final data = {'denuncia': idDenuncia};
+
+    final resp = await http.post('${Environment.apiUrl}/denuncias/terminar',
+        body: jsonEncode(data),
+        headers: {'Content-Type': 'application/json', 'x-token': token});
+
+    if (resp.statusCode == 200) {
+      this.enProceso = false;
+      return true;
+    } else {
+      return false;
+    }
+  }
   // cambia en proceso a true
 }
