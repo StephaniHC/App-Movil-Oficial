@@ -92,7 +92,7 @@ class _PerfilPageState extends State<PerfilUserPage> {
               expandedHeight: expandedHeight,
               title: '',
               subtitle: usuario?.nombre ?? "nulo",
-              fotoUrl: usuario?.img ?? "",
+              fotoUrl: usuario?.img ?? usuario.imagenUrl,
               isOn: isOn,
               logout: () async {
                 await notificacion.borrarTokenFCMServices();

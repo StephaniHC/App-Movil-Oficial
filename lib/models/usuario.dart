@@ -47,15 +47,7 @@ class Usuario {
         "role": role,
       };
 
-  // String get imagenUrl {
-  //   if (this.img == null) {
-  //     return '$base_url/upload/usuarios/no-image';
-  //   } else if (this.img.contains('https')) {
-  //     return this.img;
-  //   } else if (this.img != null) {
-  //     return '$base_url/upload/usuarios/${this.img}';
-  //   } else {
-  //     return '$base_url/upload/usuarios/no-image';
-  //   }
-  // }
+  String get imagenUrl {
+    return '$base_url/uploads/usuarios/no-image';
+  }
 }

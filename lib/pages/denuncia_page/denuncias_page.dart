@@ -5,7 +5,6 @@ import 'package:app_movil_oficial/native/background_location.dart';
 import 'package:app_movil_oficial/pages/mapa_page.dart';
 import 'package:app_movil_oficial/services/BottomNavigationBarServices/ui_provider.dart';
 import 'package:app_movil_oficial/services/auth_service.dart';
-import 'package:app_movil_oficial/services/denuncia_service.dart';
 import 'package:app_movil_oficial/services/denuncia_solicitud_service.dart';
 import 'package:app_movil_oficial/services/socket_service.dart';
 import 'package:app_movil_oficial/widgets/boton_principal.dart';

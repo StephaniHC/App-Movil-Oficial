@@ -30,8 +30,9 @@ class _LoadingPage1State extends State<LoadingPage1>
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     if (state == AppLifecycleState.resumed) {
       if (await Geolocator().isLocationServiceEnabled()) {
-        Navigator.pushReplacement(
-            context, navegarMapaFadeIn(context, MapaPage()));
+        // Navigator.pushReplacement(
+        //     context, navegarMapaFadeIn(context, MapaPage()));
+        Navigator.pushReplacementNamed(context, 'loading');
       }
     }
   }
@@ -60,7 +61,8 @@ class _LoadingPage1State extends State<LoadingPage1>
 
     if (permisoGPS && gpsActivo) {
       Navigator.pushReplacementNamed(context, 'loading');
-      // Navigator.pushReplacement(context, navegarMapaFadeIn(context, MapaPage() ));
+      // Navigator.pushReplacement(
+      // context, navegarMapaFadeIn(context, MapaPage()));
       return '';
     } else if (!permisoGPS) {
       Navigator.pushReplacement(

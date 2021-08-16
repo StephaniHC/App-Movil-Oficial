@@ -62,11 +62,11 @@ class BackgroundLocation {
       await _iosSubs?.cancel();
     } else {
       await _geolocatorSubs?.cancel();
-      _geolocatorSubs.pause();
+      _geolocatorSubs?.pause();
     }
 
     _running = false;
-    _controller.close();
+    _controller?.close();
 
     await _methodChannel.invokeMethod('stop');
   }

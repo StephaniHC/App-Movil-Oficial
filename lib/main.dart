@@ -1,6 +1,7 @@
 import 'package:app_movil_oficial/bloc/busqueda/busqueda_bloc.dart';
 import 'package:app_movil_oficial/bloc/mapa/mapa_bloc.dart';
 import 'package:app_movil_oficial/bloc/mi_ubicacion/mi_ubicacion_bloc.dart';
+import 'package:app_movil_oficial/pages/loading_page1.dart';
 import 'package:app_movil_oficial/routes/routes.dart';
 import 'package:app_movil_oficial/services/BottomNavigationBarServices/ui_provider.dart';
 import 'package:app_movil_oficial/services/auth_service.dart';
@@ -40,10 +41,8 @@ class _MyAppState extends State<MyApp> {
     final notification = new NotificationsService();
     notification.initNotifications();
     notification.mensajesStream.listen((data) {
-      // navigatorKey.currentState.pushNamed('welcome', arguments: data);
       print('recibiendo notification');
       print(data);
-      // navigatorKey.currentState.pushNamed('login', arguments: data);
 
       navigatorKey.currentState
           .pushReplacementNamed('denuncia', arguments: data);
@@ -69,7 +68,8 @@ class _MyAppState extends State<MyApp> {
           title: 'Denuncias Oficial',
           navigatorKey: navigatorKey,
           // initialRoute: 'register_trabajador',
-          initialRoute: 'loading1',
+          home: LoadingPage1(),
+          // initialRoute: 'loading1',
           routes: appRoutes,
           theme: ThemeData(primaryColor: Color.fromARGB(255, 32, 217, 148)),
         ));
