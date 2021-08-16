@@ -107,7 +107,8 @@ Widget _noTienesCuenta(BuildContext context) {
       ),
       GestureDetector(
         onTap: () {
-          Navigator.pushNamed(context, 'register_trabajador');
+          mostrarAlerta(context, "Acceso denegado",
+              "Si eres un efectivo policial, solicita tu cuenta de usuario en tu EPI");
         },
         child: Text(
           'Registrate',

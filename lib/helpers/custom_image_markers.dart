@@ -4,16 +4,14 @@ Future<BitmapDescriptor> getAssetImageMarker(String marcador) async {
   var nombreMarcador = '';
 
   if (marcador == 'destino') {
-    nombreMarcador = 'markerDestination';
-  }else{
-     nombreMarcador = 'marcador1';
+    nombreMarcador = 'marcador1';
+  } else {
+    nombreMarcador = 'marcador1';
   }
 
   return await BitmapDescriptor.fromAssetImage(
-      ImageConfiguration(devicePixelRatio: 2.5),
-      'assets/$nombreMarcador.png');
+      ImageConfiguration(devicePixelRatio: 2.5), 'assets/$nombreMarcador.png');
 }
-
 
 // Future<BitmapDescriptor> getNetworkImageMarker() async {
 

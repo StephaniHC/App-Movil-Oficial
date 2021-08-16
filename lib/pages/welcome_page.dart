@@ -1,3 +1,4 @@
+import 'package:app_movil_oficial/helpers/mostrar_alerta.dart';
 import 'package:app_movil_oficial/widgets/boton_principal.dart';
 import 'package:app_movil_oficial/widgets/customClipper.dart';
 import 'package:app_movil_oficial/widgets/logo/appname_widget.dart';
@@ -40,7 +41,7 @@ class WelcomePage extends StatelessWidget {
             padding: EdgeInsets.only(left: 40, right: 40, top: 10, bottom: 10),
             alignment: Alignment.center,
             child: Text(
-              'Adquiere los servicios de acuerdo a tus necesidades,  mas de 1000 trabajadores esperan por Ti.',
+              'Realiza tus denuncias o reportes mas de 1000 oficiales esperan por tí',
               textAlign: TextAlign.center,
               style: TextStyle(
                   height: 1.3,
@@ -66,7 +67,9 @@ class WelcomePage extends StatelessWidget {
                     color: Colors.white,
                     textColor: color,
                     onPressed: () {
-                      Navigator.pushNamed(context, 'register_trabajador');
+                      mostrarAlerta(context, "Acceso denegado",
+                          "Si eres un efectivo policial, solicita tu cuenta de usuario en tu EPI");
+                      // Navigator.pushNamed(context, 'register_trabajador');
                     }),
               ],
             ),
